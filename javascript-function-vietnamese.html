@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+	<title>Simple script convert number to text (for Vietnamese)</title>
+    <meta charset="utf-8">
+	<meta name="description" content="Numbers-To-Text - Simple script convert number to text (for Vietnamese)">
+</head>
+<body>
+	<form action="" method="post" onsubmit="return subchfrm(this);">
+		Number<br><input name="number1" id="number1" maxlength="18" type="text">
+		<br>
+		Text
+		<br>
+		<textarea cols="40" rows="2" name="number1_string" id="number1_string" onkeypress="return checkLength(this.form);" readonly="readonly" oncontextmenu="return false" oncopy="return false" onpaste="return false" oncut="return false"></textarea>
+		<hr>
+		Number<br><input name="number2" id="number2" maxlength="18" type="text">
+		<br>
+		<div id="textstring1"></div>
+	</form>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>		
+	<script language="javascript" src="javascript-function-vietnamese.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#number1').blur().keyup(function () {
+				var number = document.getElementById('number1').value;
+				number = number.replace(/,/g, "");
+				var readNumber = read_numbers(number);
+				var str_number = readNumber.substring(2, 1).toUpperCase() + readNumber.substring(2, readNumber.length) + " đồng";
+				document.getElementById('number1_string').value = str_number;
+				return false;
+			});
+
+			$('#number2').blur().keyup(function () {
+
+				var number = $('input[name="number2"]').val();
+				number = number.replace(/,/g, "");
+
+				var readNumber = read_numbers(number);
+				var str_number = readNumber.substring(2, 1).toUpperCase() + readNumber.substring(2, readNumber.length) + " đồng";
+				$('#textstring1').text(str_number);
+
+				var format_number = formatCurrency(number);
+				$('input[name="number2"]').val(format_number);
+
+				return false;
+			});
+
+		});
+	</script>
+</body>
+</html>
